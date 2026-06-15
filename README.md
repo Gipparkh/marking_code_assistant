@@ -1,3 +1,5 @@
+<img width="1280" height="640" alt="mca" src="https://github.com/user-attachments/assets/522919a7-430c-4b2c-8391-1df5a84d269a" />
+
 # Marking Code Assistant
 
 ![GitHub release](https://img.shields.io/github/v/release/Gipparkh/marking_code_assistant)
