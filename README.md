@@ -10,6 +10,10 @@
 >Готовые релизы находятся по ссылке:
 >
 >https://github.com/Gipparkh/marking_code_assistant/releases
+>
+>Список изменений:
+>
+>[Changelog](CHANGELOG.md)
 
 
 ## Требования
