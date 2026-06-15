@@ -1,5 +1,9 @@
 # Marking Code Assistant
 
+![GitHub release](https://img.shields.io/github/v/release/Gipparkh/marking_code_assistant)
+![License](https://img.shields.io/github/license/Gipparkh/marking_code_assistant)
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+
 **MCA** — это локальное приложение для генерации, хранения и управления кодами маркировки (включает DataMatrix, EAN-13 и EAN-8), а также работы с внешне сохранёнными кодами (добавленными руками в БД).  
 
 Предназначено для тестирования, отладки и быстрого ввода данных в системы, поддерживающие эмуляцию сканера через JavaScript или ADB, а так же генерацию визуальных кодов.
