@@ -1,0 +1,8 @@
+{
+  "Пиво": "010{ean}215{random:6}{gs}93{random:4}",
+  "Пиво БА": "010{ean}215{random:6}{gs}93{random:4}",
+  "Вода": "010{ean}215{random:12}{gs}93{random:4}",
+  "Напитки БА": "010{ean}215{random:12}{gs}93{random:4}",
+  "Молочная продукция": "010{ean}215{random:5}{gs}93{random:4}",
+  "Молочная продукция с весом": "010{ean}215{random:5}{gs}93{random:4}{gs}310{random:6}"
+}
