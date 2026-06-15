@@ -14,13 +14,16 @@
 
 >[!IMPORTANT]
 >## Скачать приложение
->Готовые релизы находятся по ссылке:
 >
->https://github.com/Gipparkh/marking_code_assistant/releases
+>[Страница Релизов](https://github.com/Gipparkh/marking_code_assistant/releases)
 >
->Список изменений:
+>## Последние изменения
 >
 >[Changelog](CHANGELOG.md)
+>
+>## Редактирование групп маркировки:
+>
+>[Руководство](mc_editor.md)
 
 
 ## Требования
