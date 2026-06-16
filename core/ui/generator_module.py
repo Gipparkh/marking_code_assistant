@@ -1,5 +1,4 @@
 import flet as ft
-
 from core import config
 from core.groups import get_group_names
 from core.code_generator import build_full_code, get_code_url

@@ -9,9 +9,9 @@ from core.ui.table_module import TableModule
 def main(page: ft.Page):
     try:
         page.window.width = 800
-        page.window.height = 608
+        page.window.height = 620
         page.window.min_width = 800
-        page.window.min_height = 608
+        page.window.min_height = 620
         page.title = "MCA"
         page.locale = "ru"
         page.scroll = "auto"

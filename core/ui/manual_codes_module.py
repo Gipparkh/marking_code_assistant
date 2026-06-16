@@ -1,8 +1,8 @@
 import flet as ft
-
 from core import config
 from core.database import add_manual_item
 from core.random_generator import generate_random_string
+from core.groups import get_group_names
 
 
 def show_snack_bar(page: ft.Page, message: str, bgcolor: str = "red"):
@@ -15,11 +15,17 @@ class ManualCodesModule:
     def __init__(self, page: ft.Page):
         self.page = page
         self.name_field = None
+        self.group_dropdown = None
         self.full_code_field = None
         self.comment_field = None
 
     def build(self):
         self.name_field = ft.TextField(label="Название *", expand=True)
+        self.group_dropdown = ft.Dropdown(
+            label="Группа маркировки (опционально)",
+            options=[ft.dropdown.Option(g) for g in get_group_names()],
+            expand=True
+        )
         self.full_code_field = ft.TextField(
             label="Полный код маркировки *",
             multiline=True,
@@ -66,6 +72,7 @@ class ManualCodesModule:
             ),
             self.name_field,
             self.full_code_field,
+            self.group_dropdown,
             self.comment_field,
             save_btn,
             helper_buttons
@@ -76,6 +83,7 @@ class ManualCodesModule:
     def on_save(self, e):
         name = self.name_field.value.strip()
         full_code = self.full_code_field.value.strip()
+        marking_group = self.group_dropdown.value
 
         if not name:
             show_snack_bar(self.page, "Введите название!")
@@ -88,11 +96,13 @@ class ManualCodesModule:
             add_manual_item(
                 name=name,
                 full_code=full_code,
+                marking_group=marking_group,
                 comment=self.comment_field.value.strip() or ""
             )
             show_snack_bar(self.page, "Внешний код успешно сохранён!", bgcolor="green")
 
             self.name_field.value = ""
+            self.group_dropdown.value = None
             self.full_code_field.value = ""
             self.comment_field.value = ""
             self.page.update()

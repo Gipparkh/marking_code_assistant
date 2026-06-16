@@ -1,7 +1,6 @@
 import sqlite3
 import os
 import sys
-from core.config import DATABASE_PATH
 
 
 def get_db_path():
@@ -19,8 +18,8 @@ DB_PATH = get_db_path()
 
 
 def init_db():
-    os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)
-    with sqlite3.connect(DATABASE_PATH) as conn:
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+    with sqlite3.connect(DB_PATH) as conn:
         conn.execute("""
             CREATE TABLE IF NOT EXISTS items (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,11 +32,12 @@ def init_db():
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )
         """)
+
         conn.commit()
 
 
 def add_generated_item(name: str, marking_group: str, short_ean: str, comment: str = ""):
-    with sqlite3.connect(DATABASE_PATH) as conn:
+    with sqlite3.connect(DB_PATH) as conn:
         conn.execute("""
             INSERT INTO items (name, type, marking_group, short_ean, comment)
             VALUES (?, ?, ?, ?, ?)
@@ -45,24 +45,24 @@ def add_generated_item(name: str, marking_group: str, short_ean: str, comment: s
         conn.commit()
 
 
-def add_manual_item(name: str, full_code: str, comment: str = ""):
-    with sqlite3.connect(DATABASE_PATH) as conn:
+def add_manual_item(name: str, full_code: str, marking_group: str = None, comment: str = ""):
+    with sqlite3.connect(DB_PATH) as conn:
         conn.execute("""
-            INSERT INTO items (name, type, full_code, comment)
-            VALUES (?, ?, ?, ?)
-        """, (name, "manual", full_code, comment or None))
+            INSERT INTO items (name, type, marking_group, full_code, comment)
+            VALUES (?, 'manual', ?, ?, ?)
+        """, (name, marking_group, full_code, comment or None))
         conn.commit()
 
 
 def delete_item_by_id(item_id: int):
-    with sqlite3.connect(DATABASE_PATH) as conn:
+    with sqlite3.connect(DB_PATH) as conn:
         cur = conn.execute("DELETE FROM items WHERE id = ?", (item_id,))
         conn.commit()
         return cur.rowcount > 0
 
 
 def search_items(item_type: str = None, group_filter: str = None, name_query: str = ""):
-    with sqlite3.connect(DATABASE_PATH) as conn:
+    with sqlite3.connect(DB_PATH) as conn:
         conditions = []
         params = []
 
@@ -70,7 +70,7 @@ def search_items(item_type: str = None, group_filter: str = None, name_query: st
             conditions.append("type = ?")
             params.append(item_type)
 
-        if group_filter and item_type != "manual":
+        if group_filter:
             conditions.append("marking_group = ?")
             params.append(group_filter)
 

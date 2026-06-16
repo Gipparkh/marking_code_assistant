@@ -1,5 +1,4 @@
 import flet as ft
-
 from core import config
 from core.database import search_items, delete_item_by_id
 from core.groups import get_group_names
@@ -91,9 +90,7 @@ class TableModule:
         else:
             item_type = None
 
-        group_filter = None
-        if item_type != "manual":
-            group_filter = None if self.group_filter.value == "Все" else self.group_filter.value
+        group_filter = None if self.group_filter.value == "Все" else self.group_filter.value
 
         search_query = self.search_field.value.strip()
         records = search_items(item_type=item_type, group_filter=group_filter, name_query=search_query)
@@ -189,9 +186,9 @@ class TableModule:
                 comment = record[6] or ""
 
                 if item_type == "generated":
-                    group_or_code_text = f"{marking_group} (EAN: {short_ean})"
+                    display_text = f"{marking_group or '—'} | EAN: {short_ean}"
                 else:
-                    group_or_code_text = full_code
+                    display_text = f"{marking_group or '—'} | {full_code}"
 
                 buttons = []
 
@@ -239,7 +236,7 @@ class TableModule:
                         ft.Container(ft.Text(name), expand=True, alignment=ft.alignment.center),
                         ft.Container(ft.Text("Gen" if item_type == "generated" else "Save"), width=100,
                                      alignment=ft.alignment.center),
-                        ft.Container(ft.Text(group_or_code_text), expand=True, alignment=ft.alignment.center),
+                        ft.Container(ft.Text(display_text), expand=True, alignment=ft.alignment.center),
                         ft.Container(ft.Text(comment), expand=True, alignment=ft.alignment.center),
                         ft.Container(ft.Row(buttons, spacing=4), width=140, alignment=ft.alignment.center),
                     ], spacing=10),
